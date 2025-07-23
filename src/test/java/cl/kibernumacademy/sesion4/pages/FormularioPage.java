@@ -20,7 +20,7 @@ public class FormularioPage {
     // Localizador para el campo dirección por su id
     private By address = By.id("currentAddress");
     // Localizador para el campo state por su id
-    private By state = By.id("state");
+    private By state = By.id("react-select-3-input");
     // Localizador para el campo city por su id
     private By city = By.id("city");
 
@@ -54,24 +54,27 @@ public class FormularioPage {
     }
 
     public void selectState(String value) {
-        // Hacer click en el dropdown para abrirlo
-        driver.findElement(state).click();
-        // Seleccionar la opción por texto visible
-        driver.findElement(By.xpath("//div[text()='" + value + "']")).click();
+
+        WebElement stateInput = driver.findElement(By.id("react-select-3-input"));
+
+        stateInput.sendKeys(value);
+        stateInput.sendKeys(Keys.ENTER);
     }
 
     public void selectCity(String value) {
-        // Hacer click en el dropdown para abrirlo
-        driver.findElement(city).click();
-        // Seleccionar la opción por texto visible
-        driver.findElement(By.xpath("//div[text()='" + value + "']")).click();
+
+        WebElement stateInput = driver.findElement(By.id("react-select-4-input"));
+
+        stateInput.sendKeys(value);
+        stateInput.sendKeys(Keys.ENTER);
     }
 
     public void selectGender(String gender) {
         driver.findElement(By.xpath("//label[text()='" + gender + "']")).click();
     }
 
-    // Pido como parámetro un arreglo para luego recorrerlo y así buscar por el xpath el label correspondiente
+    // Pido como parámetro un arreglo para luego recorrerlo y así buscar por el
+    // xpath el label correspondiente
     public void selectHobbies(String[] hobbies) {
         for (String hobby : hobbies) {
             driver.findElement(By.xpath("//label[@class='custom-control-label' and text()='" + hobby + "']")).click();
