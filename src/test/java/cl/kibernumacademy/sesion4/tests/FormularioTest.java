@@ -10,27 +10,39 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS) // Para que @BeforeAll funcione correctamente
 @DisplayName("Pruebas del Formulario de DemoQA")
 public class FormularioTest {
+
     private WebDriver driver;
     private FormularioPage formularioPage;
     private final String baseUrl = "https://demoqa.com/automation-practice-form";
 
     @BeforeAll
     void setupClass() {
-        WebDriverManager.chromedriver().setup();
+        WebDriverManager.chromedriver().setup(); //Descarga el chrome driver a utilizar 
     }
 
     @BeforeEach
     void setupTest() {
+        System.out.println(">>> BeforeEach ejecutándose");// debugg
         driver = new ChromeDriver(); // Inicializa el navegador
+        driver.manage().window().maximize();// Maximiza la pantalla
         driver.get(baseUrl); // Navega a la URL del formulario
+        cerrarBanner();
         formularioPage = new FormularioPage(driver); // Inicializa nuestro Page Object
+
     }
 
     @AfterEach
     void tearDown() {
         if (driver != null) {
-            //driver.quit(); // Cierra el navegador después de cada prueba
+            // driver.quit(); // Cierra el navegador después de cada prueba
         }
+    }
+
+    private void cerrarBanner() {
+        
+        // Elimina el banner usando JavaScript
+        ((JavascriptExecutor) driver)
+            .executeScript("document.getElementById('fixedban')?.remove();");
     }
 
     @Test
@@ -42,7 +54,7 @@ public class FormularioTest {
         String mobile = "987654321";
         String gender = "Female";
         String address = "Calle Falsa 123";
-        String [] hobbies = {"Reading", "Music"};
+        String[] hobbies = { "Reading", "Music" };
         String state = "NCR";
         String city = "Delhi";
 
@@ -57,7 +69,6 @@ public class FormularioTest {
         formularioPage.setAddress(address);
         formularioPage.selectState(state);
         formularioPage.selectCity(city);
-      
 
         // Aca van los selectores de estado y ciudad
 

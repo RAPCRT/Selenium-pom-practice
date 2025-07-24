@@ -1,12 +1,17 @@
 package cl.kibernumacademy.sesion4.pages;
 
 import org.openqa.selenium.*;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class FormularioPage {
 
     private WebDriver driver;
-
+    private WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
     // Localizador para el campo nombre buscando por su id (es de tipo input)
     private By firstName = By.id("firstName");
     // Localizador para el campo apellido buscando por su id (es de tipo input)
@@ -20,12 +25,13 @@ public class FormularioPage {
     // Localizador para el campo dirección por su id
     private By address = By.id("currentAddress");
     // Localizador para el campo state por su id
-    private By state = By.id("react-select-3-input");
+    private By state = By.id("state");
     // Localizador para el campo city por su id
     private By city = By.id("city");
 
     public FormularioPage(WebDriver driver) {
         this.driver = driver;
+        this.wait = new WebDriverWait(this.driver, Duration.ofSeconds(5));
     }
 
     public void setFirstName(String name) {
@@ -54,19 +60,17 @@ public class FormularioPage {
     }
 
     public void selectState(String value) {
-
+        // Se abre la lista desplegable
         WebElement stateInput = driver.findElement(By.id("react-select-3-input"));
-
         stateInput.sendKeys(value);
         stateInput.sendKeys(Keys.ENTER);
     }
 
     public void selectCity(String value) {
-
-        WebElement stateInput = driver.findElement(By.id("react-select-4-input"));
-
-        stateInput.sendKeys(value);
-        stateInput.sendKeys(Keys.ENTER);
+        // Se abre la lista desplegable
+        WebElement cityInput = driver.findElement(By.id("react-select-4-input"));
+        cityInput.sendKeys(value);
+        cityInput.sendKeys(Keys.ENTER);
     }
 
     public void selectGender(String gender) {
@@ -77,7 +81,9 @@ public class FormularioPage {
     // xpath el label correspondiente
     public void selectHobbies(String[] hobbies) {
         for (String hobby : hobbies) {
-            driver.findElement(By.xpath("//label[@class='custom-control-label' and text()='" + hobby + "']")).click();
+            By locator = By.xpath("//label[@class='custom-control-label' and text()='" + hobby + "']");
+            // Lo que hace es que espera a que al elemento se le haga click
+            wait.until(ExpectedConditions.elementToBeClickable(locator)).click();
         }
     }
 

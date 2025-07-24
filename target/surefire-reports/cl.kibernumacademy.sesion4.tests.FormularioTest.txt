@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: cl.kibernumacademy.sesion4.tests.FormularioTest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 7.075 s - in cl.kibernumacademy.sesion4.tests.FormularioTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 9.234 s -- in cl.kibernumacademy.sesion4.tests.FormularioTest
