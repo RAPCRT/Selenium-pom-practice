@@ -1,9 +1,7 @@
 package cl.kibernumacademy.sesion4.pages;
 
 import org.openqa.selenium.*;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
@@ -32,6 +30,20 @@ public class FormularioPage {
     public FormularioPage(WebDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(this.driver, Duration.ofSeconds(5));
+    }
+
+    // Valor escrito en <input id="firstName"> para obtener el dato
+    public String getFirstNameValue() {
+        return driver.findElement(firstName).getAttribute("value");
+    }
+
+    public String getLastNameValue() {
+        return driver.findElement(lastName).getAttribute("value");
+    }
+
+    // Valor escrito en <input id="userEmail"> para obtener el dato
+    public String getEmailValue() {
+        return driver.findElement(email).getAttribute("value");
     }
 
     public void setFirstName(String name) {

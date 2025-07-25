@@ -17,7 +17,7 @@ public class FormularioTest {
 
     @BeforeAll
     void setupClass() {
-        WebDriverManager.chromedriver().setup(); //Descarga el chrome driver a utilizar 
+        WebDriverManager.chromedriver().setup(); // Descarga el chrome driver a utilizar
     }
 
     @BeforeEach
@@ -34,15 +34,14 @@ public class FormularioTest {
     @AfterEach
     void tearDown() {
         if (driver != null) {
-            // driver.quit(); // Cierra el navegador después de cada prueba
+            driver.quit(); // Cierra el navegador después de cada prueba
         }
     }
 
     private void cerrarBanner() {
-        
         // Elimina el banner usando JavaScript
         ((JavascriptExecutor) driver)
-            .executeScript("document.getElementById('fixedban')?.remove();");
+                .executeScript("document.getElementById('fixedban')?.remove();");
     }
 
     @Test
@@ -70,7 +69,18 @@ public class FormularioTest {
         formularioPage.selectState(state);
         formularioPage.selectCity(city);
 
-        // Aca van los selectores de estado y ciudad
+        // 3) VALIDAR 3 CAMPOS (nombre, apellido y email)
+        Assertions.assertAll("Verificar nombre, apellido y email",
+                () -> Assertions.assertEquals(firstName,
+                        formularioPage.getFirstNameValue(),
+                        "First Name no coincide"),
+                () -> Assertions.assertEquals(lastName,
+                        formularioPage.getLastNameValue(),
+                        "Last Name no coincide"),
+                () -> Assertions.assertEquals(email,
+                        formularioPage.getEmailValue(),
+                        "Email no coincide"));
+        System.out.println("Validaciones completadas para: nombre, apellido y email");
 
     }
 }
